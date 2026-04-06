@@ -3,150 +3,337 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ashutosh Chaurasia — SysAdmin & DevOps</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<title>Ashutosh Chaurasia — SysAdmin & DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f3ee;
-  --bg2:#eceae3;
-  --ink:#1a1814;
-  --ink2:#4a4840;
-  --ink3:#8a887e;
-  --cream:#faf9f5;
-  --card:#ffffff;
-  --border:#dddbd3;
-  --border2:#c8c5bb;
-  --green:#1a7a4a;
-  --green-bg:#e8f5ed;
-  --green-light:#c5e8d4;
-  --orange:#c45c1a;
-  --orange-bg:#fdf0e6;
-  --accent:#2d6a4f;
-  --accent-light:#52b788;
-  --tag-bg:#e8f5ed;
-  --tag-text:#1a5c35;
+  --bg:#09090f;
+  --bg2:#0f0f1a;
+  --surface:#13131f;
+  --surface2:#1a1a2e;
+  --card:#16162a;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.14);
+  --text:#e8e8f0;
+  --muted:#8888aa;
+  --dim:#555570;
+  --green:#00ff88;
+  --green2:#00cc6a;
+  --green-dim:rgba(0,255,136,0.08);
+  --green-glow:rgba(0,255,136,0.25);
+  --purple:#7c5cfc;
+  --purple-dim:rgba(124,92,252,0.1);
+  --blue:#3b82f6;
+  --orange:#f97316;
+  --head:'Outfit',sans-serif;
+  --body:'Space Grotesk',sans-serif;
   --mono:'JetBrains Mono',monospace;
-  --head:'Bricolage Grotesque',sans-serif;
-  --body:'Plus Jakarta Sans',sans-serif;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.7;overflow-x:hidden}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--body);font-size:18px;line-height:1.75;
+  overflow-x:hidden;
+}
 
+/* ── CANVAS BG ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;opacity:.35;pointer-events:none}
+
+/* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(245,243,238,0.9);backdrop-filter:blur(16px);
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(9,9,15,0.75);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
-.nav-inner{max-width:1160px;margin:0 auto;padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--mono);font-size:.85rem;font-weight:500;color:var(--accent)}
-.nav-links{display:flex;gap:1.75rem;list-style:none}
-.nav-links a{color:var(--ink3);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:var(--accent)}
-.nav-cta{background:var(--ink);color:var(--cream);font-size:.8rem;font-weight:600;padding:.45rem 1.1rem;border-radius:6px;text-decoration:none;transition:background .2s}
-.nav-cta:hover{background:var(--accent)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2.5rem;height:68px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{
+  font-family:var(--mono);font-size:1rem;font-weight:500;
+  color:var(--green);text-decoration:none;letter-spacing:.02em;
+  transition:opacity .2s;
+}
+.nav-logo:hover{opacity:.7}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:.85rem;
+  font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{
+  background:var(--green);color:#000;font-size:.85rem;font-weight:700;
+  padding:.5rem 1.3rem;border-radius:8px;text-decoration:none;
+  transition:transform .15s,box-shadow .15s;letter-spacing:.03em;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--green-glow)}
 
-.wrap{max-width:1160px;margin:0 auto;padding:0 2rem}
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2.5rem;position:relative;z-index:1}
 
-#hero{padding:9rem 0 6rem}
-.hero-flex{display:grid;grid-template-columns:1fr 360px;gap:5rem;align-items:start}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.72rem;color:var(--green);letter-spacing:.08em;background:var(--green-bg);border:1px solid var(--green-light);padding:.35rem .9rem;border-radius:4px;margin-bottom:1.75rem}
-.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-family:var(--head);font-size:clamp(2.6rem,4.5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;color:var(--ink);margin-bottom:1.25rem}
-h1 em{font-style:normal;color:var(--accent)}
-.hero-desc{font-size:1rem;color:var(--ink2);max-width:480px;margin-bottom:2rem;line-height:1.8}
-.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap}
-.btn-fill{background:var(--ink);color:var(--cream);font-weight:600;font-size:.88rem;padding:.7rem 1.5rem;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s}
-.btn-fill:hover{background:var(--accent);transform:translateY(-1px)}
-.btn-ghost{border:1px solid var(--border2);color:var(--ink2);font-size:.88rem;font-weight:500;padding:.7rem 1.5rem;border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:68px;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:center;width:100%}
 
-.hero-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:sticky;top:80px}
-.hero-photo{width:80px;height:80px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-light);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.5rem;color:var(--accent);margin-bottom:1.25rem;overflow:hidden;position:relative}
-.hero-photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;top:0;left:0}
-.hero-name{font-family:var(--head);font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:.2rem}
-.hero-title{font-size:.78rem;color:var(--ink3);margin-bottom:1.5rem;font-family:var(--mono)}
-.hero-meta{display:flex;flex-direction:column;gap:.75rem;border-top:1px solid var(--border);padding-top:1.25rem}
-.meta-row{display:flex;align-items:center;gap:.65rem;font-size:.84rem;color:var(--ink2)}
-.meta-icon{width:28px;height:28px;background:var(--bg2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:1.5rem}
-.stat-box{background:var(--bg);padding:1rem;display:flex;flex-direction:column;align-items:center;text-align:center}
-.stat-num{font-family:var(--head);font-size:1.5rem;font-weight:800;color:var(--ink);line-height:1}
-.stat-lab{font-size:.66rem;color:var(--ink3);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em;font-family:var(--mono)}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--mono);font-size:.82rem;color:var(--green);
+  background:var(--green-dim);border:1px solid rgba(0,255,136,0.2);
+  padding:.45rem 1.1rem;border-radius:6px;margin-bottom:2rem;letter-spacing:.06em;
+}
+.hero-tag-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--green-glow)}50%{box-shadow:0 0 0 8px transparent}}
 
-section{padding:5rem 0}
-.sec-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
-.sec-title{font-family:var(--head);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);margin-bottom:.75rem}
-.sec-sub{color:var(--ink3);max-width:500px;font-size:.92rem}
-.sec-head{margin-bottom:3rem}
-.divider{height:1px;background:var(--border)}
+.hero-name{
+  font-family:var(--head);font-size:clamp(1.5rem,2.5vw,2rem);
+  font-weight:400;color:var(--muted);letter-spacing:.02em;margin-bottom:.5rem;
+}
+.hero-h1{
+  font-family:var(--head);
+  font-size:clamp(3.5rem,6vw,5.5rem);
+  font-weight:900;line-height:1;letter-spacing:-.04em;
+  color:var(--text);margin-bottom:1.5rem;
+  background:linear-gradient(135deg,#fff 0%,#c8c8e8 50%,#7c5cfc 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-h1 span{
+  display:block;
+  background:linear-gradient(90deg,var(--green),#00ccff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-desc{
+  font-size:1.15rem;color:var(--muted);max-width:520px;
+  margin-bottom:2.5rem;line-height:1.85;font-weight:300;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-primary{
+  background:linear-gradient(135deg,var(--green),#00ccff);
+  color:#000;font-weight:700;font-size:.95rem;
+  padding:.85rem 2rem;border-radius:10px;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;letter-spacing:.02em;
+  box-shadow:0 0 0 0 var(--green-glow);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px var(--green-glow)}
+.btn-secondary{
+  border:1px solid var(--border2);color:var(--text);font-size:.95rem;
+  font-weight:500;padding:.85rem 2rem;border-radius:10px;text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover{border-color:var(--green);background:var(--green-dim)}
 
-#experience{background:var(--cream)}
-.exp-list{display:flex;flex-direction:column;gap:1.25rem}
-.exp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem 2rem;transition:border-color .2s,box-shadow .2s}
-.exp-card:hover{border-color:var(--accent-light);box-shadow:0 4px 20px rgba(45,106,79,.07)}
-.exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-.exp-role{font-family:var(--head);font-weight:700;font-size:1.05rem;color:var(--ink)}
-.exp-company{font-size:.82rem;color:var(--ink3);margin-top:.2rem;font-family:var(--mono)}
-.exp-period{font-family:var(--mono);font-size:.7rem;background:var(--green-bg);color:var(--green);border:1px solid var(--green-light);padding:.3rem .8rem;border-radius:4px;white-space:nowrap;flex-shrink:0}
-.exp-current{background:var(--green);color:#fff;border-color:var(--green)}
-.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.35rem}
-.exp-bullets li{font-size:.9rem;color:var(--ink2);padding-left:1.5rem;position:relative;line-height:1.6}
-.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent-light);font-size:.75rem;top:.15rem}
+/* Hero stats bar */
+.hero-stats{
+  display:flex;gap:0;border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;background:var(--surface);
+}
+.hstat{
+  flex:1;padding:1.25rem 1rem;text-align:center;
+  border-right:1px solid var(--border);transition:background .2s;
+}
+.hstat:last-child{border-right:none}
+.hstat:hover{background:var(--green-dim)}
+.hstat-n{font-family:var(--head);font-size:2rem;font-weight:900;color:var(--green);line-height:1}
+.hstat-l{font-size:.72rem;color:var(--muted);margin-top:.35rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em}
 
+/* ── 3D CARD ── */
+.card-3d-wrap{perspective:1200px}
+.card-3d{
+  background:var(--card);border:1px solid var(--border2);border-radius:24px;
+  padding:2.5rem;position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .08s ease;
+  box-shadow:0 25px 60px rgba(0,0,0,.6),0 0 0 1px var(--border);
+}
+.card-3d::before{
+  content:'';position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(135deg,rgba(0,255,136,.06) 0%,rgba(124,92,252,.06) 100%);
+  pointer-events:none;
+}
+.card-3d-shine{
+  position:absolute;inset:0;border-radius:24px;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.04),transparent 40%);
+  pointer-events:none;z-index:2;transition:opacity .3s;
+}
+.card-photo{
+  width:100px;height:100px;border-radius:50%;
+  background:var(--green-dim);border:3px solid var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);font-weight:900;font-size:2rem;color:var(--green);
+  margin:0 auto 1.5rem;overflow:hidden;position:relative;
+  box-shadow:0 0 30px var(--green-glow);
+}
+.card-photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0}
+.card-fullname{font-family:var(--head);font-weight:700;font-size:1.3rem;color:var(--text);text-align:center;margin-bottom:.25rem}
+.card-role{font-family:var(--mono);font-size:.78rem;color:var(--green);text-align:center;margin-bottom:1.75rem;letter-spacing:.08em}
+.card-info{display:flex;flex-direction:column;gap:.85rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.ci-row{display:flex;align-items:center;gap:.8rem;font-size:.9rem;color:var(--muted)}
+.ci-ico{
+  width:32px;height:32px;background:var(--surface2);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;
+  border:1px solid var(--border);
+}
+
+/* ── SECTIONS ── */
+section{padding:6rem 0;position:relative;z-index:1}
+.sec-chip{
+  display:inline-block;font-family:var(--mono);font-size:.78rem;
+  color:var(--green);background:var(--green-dim);border:1px solid rgba(0,255,136,.2);
+  padding:.3rem .9rem;border-radius:6px;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:.9rem;
+}
+.sec-h{
+  font-family:var(--head);font-size:clamp(2.2rem,3.5vw,3rem);
+  font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:.9rem;line-height:1.1;
+}
+.sec-sub{font-size:1.05rem;color:var(--muted);max-width:540px;margin-bottom:3.5rem;font-weight:300}
+
+.divider{height:1px;background:var(--border);position:relative;z-index:1}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--bg2)}
+.exp-list{display:flex;flex-direction:column;gap:1.5rem}
+.exp-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:2.25rem 2.5rem;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  transform:translateZ(0);
+}
+.exp-card:hover{
+  border-color:rgba(0,255,136,.3);
+  transform:translateY(-4px) translateZ(0);
+  box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(0,255,136,.06);
+}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.exp-role{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);margin-bottom:.3rem}
+.exp-company{font-size:.88rem;color:var(--muted);font-family:var(--mono)}
+.exp-badge{
+  font-family:var(--mono);font-size:.73rem;padding:.35rem 1rem;border-radius:6px;
+  white-space:nowrap;flex-shrink:0;font-weight:500;
+}
+.exp-active{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3)}
+.exp-past{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.exp-bullets li{font-size:.97rem;color:var(--muted);padding-left:1.6rem;position:relative;line-height:1.65;font-weight:300}
+.exp-bullets li::before{content:'▶';position:absolute;left:0;color:var(--green);font-size:.65rem;top:.4rem}
+
+/* ── SKILLS ── */
 #skills{background:var(--bg)}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
-.skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem;transition:border-color .2s,transform .2s}
-.skill-card:hover{border-color:var(--accent-light);transform:translateY(-2px)}
-.skill-head{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem}
-.skill-ico{width:36px;height:36px;background:var(--green-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.skill-name{font-family:var(--head);font-weight:700;font-size:.92rem;color:var(--ink)}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.tag{font-size:.72rem;font-family:var(--mono);background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--green-light);padding:.22rem .6rem;border-radius:4px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
+.skill-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.75rem;cursor:default;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  transform-style:preserve-3d;
+}
+.skill-card:hover{
+  border-color:rgba(0,255,136,.25);
+  transform:translateY(-6px) rotateX(2deg);
+  box-shadow:0 20px 40px rgba(0,0,0,.4),0 0 20px rgba(0,255,136,.05);
+}
+.sk-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1.1rem}
+.sk-ico{
+  width:42px;height:42px;background:var(--green-dim);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+  border:1px solid rgba(0,255,136,.15);
+}
+.sk-name{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--text)}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.tag{
+  font-size:.75rem;font-family:var(--mono);
+  background:var(--surface2);color:var(--muted);
+  border:1px solid var(--border);padding:.28rem .7rem;border-radius:6px;
+  transition:border-color .2s,color .2s;
+}
+.skill-card:hover .tag{border-color:rgba(0,255,136,.2);color:var(--text)}
 
-#certifications{background:var(--cream)}
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
-.cert-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:border-color .2s}
-.cert-card:hover{border-color:var(--accent-light)}
-.cert-ico{width:40px;height:40px;border-radius:8px;background:var(--orange-bg);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.cert-name{font-weight:600;font-size:.9rem;color:var(--ink);line-height:1.4;margin-bottom:.25rem}
-.cert-by{font-family:var(--mono);font-size:.72rem;color:var(--ink3)}
-.badge-wip{font-size:.68rem;background:var(--orange-bg);color:var(--orange);border:1px solid #f0d0b0;padding:.1rem .5rem;border-radius:4px;font-family:var(--mono);vertical-align:middle;margin-left:.35rem}
+/* ── CERTS ── */
+#certifications{background:var(--bg2)}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.cert-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.5rem 1.75rem;display:flex;gap:1.1rem;align-items:flex-start;
+  transition:border-color .25s,transform .25s;
+}
+.cert-card:hover{border-color:rgba(124,92,252,.3);transform:translateX(4px)}
+.cert-ico{
+  width:44px;height:44px;border-radius:10px;background:rgba(124,92,252,.1);
+  border:1px solid rgba(124,92,252,.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+}
+.cert-name{font-weight:600;font-size:.97rem;color:var(--text);line-height:1.4;margin-bottom:.3rem}
+.cert-by{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.wip{
+  font-size:.68rem;background:rgba(249,115,22,.1);color:var(--orange);
+  border:1px solid rgba(249,115,22,.25);padding:.1rem .5rem;border-radius:4px;
+  font-family:var(--mono);margin-left:.5rem;vertical-align:middle;
+}
 
+/* ── EDUCATION ── */
 #education{background:var(--bg)}
-.edu-list{display:flex;flex-direction:column;gap:1rem}
-.edu-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;transition:border-color .2s}
-.edu-card:hover{border-color:var(--accent-light)}
-.edu-deg{font-family:var(--head);font-weight:700;font-size:.98rem;color:var(--ink);margin-bottom:.25rem}
-.edu-school{font-size:.82rem;color:var(--ink3);font-family:var(--mono)}
-.edu-right{text-align:right;flex-shrink:0}
-.edu-yr{font-family:var(--mono);font-size:.78rem;color:var(--accent);font-weight:500}
-.edu-grade{font-size:.78rem;color:var(--ink3);margin-top:.2rem}
-.award{margin-top:2rem;background:linear-gradient(135deg,var(--green-bg),var(--orange-bg));border:1px solid var(--green-light);border-radius:14px;padding:2rem;display:flex;gap:1.5rem;align-items:center}
-.award-ico{font-size:2.5rem;flex-shrink:0}
-.award-title{font-family:var(--head);font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:.4rem}
-.award-desc{font-size:.88rem;color:var(--ink2)}
+.edu-list{display:flex;flex-direction:column;gap:1.1rem}
+.edu-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.6rem 2rem;display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;transition:border-color .25s,transform .25s;
+}
+.edu-card:hover{border-color:rgba(0,255,136,.25);transform:translateX(4px)}
+.edu-deg{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--text);margin-bottom:.3rem}
+.edu-school{font-size:.85rem;color:var(--muted);font-family:var(--mono)}
+.edu-yr{font-family:var(--mono);font-size:.8rem;color:var(--green);font-weight:500}
+.edu-grade{font-size:.8rem;color:var(--dim);margin-top:.2rem}
+.award{
+  margin-top:2.5rem;padding:2.25rem;border-radius:18px;
+  background:linear-gradient(135deg,rgba(0,255,136,.07),rgba(124,92,252,.07));
+  border:1px solid rgba(0,255,136,.15);
+  display:flex;gap:1.75rem;align-items:center;
+}
+.award-ico{font-size:3rem;flex-shrink:0}
+.award-t{font-family:var(--head);font-weight:700;font-size:1.2rem;color:var(--text);margin-bottom:.5rem}
+.award-d{font-size:.95rem;color:var(--muted);font-weight:300}
 
-#contact{background:var(--cream)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.contact-cta h2{font-family:var(--head);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1rem}
-.contact-cta p{color:var(--ink3);margin-bottom:2rem;font-size:.92rem}
-.contact-cards{display:flex;flex-direction:column;gap:.85rem}
-.contact-card{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
-.contact-card:hover{border-color:var(--accent-light);transform:translateX(4px)}
-.contact-ico{width:36px;height:36px;background:var(--bg2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.contact-label{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.15rem}
-.contact-val{font-size:.88rem;font-weight:500;color:var(--ink)}
+/* ── CONTACT ── */
+#contact{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact-h{font-family:var(--head);font-size:clamp(2rem,3vw,2.8rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1rem;line-height:1.1}
+.contact-p{font-size:1rem;color:var(--muted);margin-bottom:2.5rem;font-weight:300}
+.c-links{display:flex;flex-direction:column;gap:1rem}
+.c-link{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.25rem 1.5rem;text-decoration:none;color:var(--text);
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.c-link:hover{border-color:rgba(0,255,136,.3);transform:translateX(5px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.c-ico{width:40px;height:40px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.c-label{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:.2rem}
+.c-val{font-size:.95rem;font-weight:500;color:var(--text)}
 
-footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-family:var(--mono);font-size:.72rem;color:var(--ink3)}
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:2.5rem;border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:.78rem;color:var(--dim);
+  position:relative;z-index:1;
+}
 
-.r{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+/* ── ANIMATIONS ── */
+.r{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
 .r.on{opacity:1;transform:translateY(0)}
+.r2{opacity:0;transform:translateY(32px);transition:opacity .7s .15s cubic-bezier(.22,1,.36,1),transform .7s .15s cubic-bezier(.22,1,.36,1)}
+.r2.on{opacity:1;transform:translateY(0)}
+.r3{opacity:0;transform:translateY(32px);transition:opacity .7s .3s cubic-bezier(.22,1,.36,1),transform .7s .3s cubic-bezier(.22,1,.36,1)}
+.r3.on{opacity:1;transform:translateY(0)}
 
-@media(max-width:900px){
-  .hero-flex{grid-template-columns:1fr}
-  .hero-card{position:static;margin-top:2rem}
+/* floating particles */
+.particle{
+  position:absolute;border-radius:50%;pointer-events:none;
+  animation:float linear infinite;
+}
+@keyframes float{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100vh) rotate(720deg);opacity:0}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr}
+  .card-3d-wrap{display:none}
+  .hero-h1{font-size:clamp(3rem,10vw,4.5rem)}
   .contact-grid{grid-template-columns:1fr}
   .nav-links,.nav-cta{display:none}
 }
@@ -154,9 +341,12 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-fa
 </head>
 <body>
 
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">ashutosh.chaurasia</div>
+    <a href="#" class="nav-logo">ashutosh.chaurasia</a>
     <ul class="nav-links">
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -164,37 +354,44 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-fa
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="nav-cta">Hire me</a>
+    <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="nav-cta">Hire Me</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
   <div class="wrap">
-    <div class="hero-flex">
+    <div class="hero-inner">
       <div>
-        <div class="hero-eyebrow">Available for opportunities</div>
-        <h1>System Admin<br>&amp; <em>DevOps</em><br>Engineer</h1>
-        <p class="hero-desc">5+ years building and automating hybrid IT infrastructure — from bare-metal servers and network gear to Kubernetes clusters, CI/CD pipelines, and cloud platforms.</p>
-        <div class="hero-btns">
-          <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-fill">Get in touch</a>
-          <a href="#experience" class="btn-ghost">View experience ↓</a>
+        <div class="hero-tag r"><span class="hero-tag-dot"></span>Available for Opportunities</div>
+        <div class="hero-name r">Ashutosh Chaurasia</div>
+        <h1 class="hero-h1 r">System Admin<span>&amp; DevOps</span></h1>
+        <p class="hero-desc r2">5+ years architecting and automating hybrid IT infrastructure — from bare-metal servers and enterprise networking to Kubernetes clusters, CI/CD pipelines, and multi-cloud environments.</p>
+        <div class="hero-btns r2">
+          <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-primary">Get in Touch →</a>
+          <a href="#experience" class="btn-secondary">View Experience</a>
+        </div>
+        <div class="hero-stats r3">
+          <div class="hstat"><div class="hstat-n">5+</div><div class="hstat-l">Years IT Exp.</div></div>
+          <div class="hstat"><div class="hstat-n">150+</div><div class="hstat-l">VMs Managed</div></div>
+          <div class="hstat"><div class="hstat-n">99.9%</div><div class="hstat-l">Uptime SLA</div></div>
+          <div class="hstat"><div class="hstat-n">30%</div><div class="hstat-l">CI/CD Boost</div></div>
         </div>
       </div>
-      <div class="hero-card r">
-        <div class="hero-photo" id="heroPhoto"><span id="initials">AC</span></div>
-        <div class="hero-name">Ashutosh Chaurasia</div>
-        <div class="hero-title">sysadmin / devops</div>
-        <div class="hero-meta">
-          <div class="meta-row"><span class="meta-icon">📍</span>Kathmandu, Nepal</div>
-          <div class="meta-row"><span class="meta-icon">📧</span>chaurasia.ashutosh18k@gmail.com</div>
-          <div class="meta-row"><span class="meta-icon">📱</span>+977-9845858723</div>
-          <div class="meta-row"><span class="meta-icon">🌐</span>English &amp; Nepali</div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-box"><span class="stat-num">5+</span><span class="stat-lab">Yrs IT Exp.</span></div>
-          <div class="stat-box"><span class="stat-num">150+</span><span class="stat-lab">VMs Managed</span></div>
-          <div class="stat-box"><span class="stat-num">99.9%</span><span class="stat-lab">Uptime SLA</span></div>
-          <div class="stat-box"><span class="stat-num">30%</span><span class="stat-lab">CI/CD Boost</span></div>
+
+      <div class="card-3d-wrap r3">
+        <div class="card-3d" id="card3d">
+          <div class="card-3d-shine" id="cardShine"></div>
+          <div class="card-photo" id="heroPhoto"><span id="initials">AC</span></div>
+          <div class="card-fullname">Ashutosh Chaurasia</div>
+          <div class="card-role">sysadmin · devops · nepal 🇳🇵</div>
+          <div class="card-info">
+            <div class="ci-row"><span class="ci-ico">📍</span>Kathmandu, Nepal</div>
+            <div class="ci-row"><span class="ci-ico">📧</span>chaurasia.ashutosh18k@gmail.com</div>
+            <div class="ci-row"><span class="ci-ico">📱</span>+977-9845858723</div>
+            <div class="ci-row"><span class="ci-ico">🌐</span>English &amp; Nepali</div>
+            <div class="ci-row"><span class="ci-ico">🎓</span>BSc (Hons) Networking &amp; IT Security</div>
+          </div>
         </div>
       </div>
     </div>
@@ -202,21 +399,23 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-fa
 </section>
 <div class="divider"></div>
 
+<!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <div class="sec-head r">
-      <p class="sec-label">Career History</p>
-      <h2 class="sec-title">Professional Experience</h2>
-      <p class="sec-sub">5+ years across IT support, data centers, networking, system administration, and DevOps automation.</p>
+    <div class="r">
+      <div class="sec-chip">Career History</div>
+      <h2 class="sec-h">Professional Experience</h2>
+      <p class="sec-sub">5+ years across data centers, IT support, networking, system administration, and full DevOps automation.</p>
     </div>
     <div class="exp-list">
+
       <div class="exp-card r">
         <div class="exp-top">
           <div>
             <div class="exp-role">System Administrator &amp; DevOps Engineer</div>
             <div class="exp-company">Javra Software Pvt. Ltd. · Kathmandu, Nepal</div>
           </div>
-          <span class="exp-period exp-current">Feb 2022 – Present</span>
+          <span class="exp-badge exp-active">Feb 2022 – Present</span>
         </div>
         <ul class="exp-bullets">
           <li>Managed and maintained 150+ virtual machines across VMware, Proxmox, and Hyper-V environments.</li>
@@ -224,87 +423,93 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-fa
           <li>Configured Zabbix, Prometheus, Grafana, and Nagios to ensure 99.9% uptime and proactive issue resolution.</li>
           <li>Implemented Docker and Ansible automation, improving CI/CD deployment efficiency by 30%.</li>
           <li>Managed multi-cluster Kubernetes deployments for microservices architecture.</li>
-          <li>Configured Cisco routers, switches, and firewalls, strengthening network security and performance.</li>
+          <li>Configured Cisco routers, switches, and firewalls — strengthening network security and performance.</li>
           <li>Utilised AWS and Azure for VM deployment, storage management, and SSO configuration.</li>
-          <li>Led system backup and disaster recovery operations — zero data loss incidents.</li>
+          <li>Led system backup and disaster recovery operations — zero data loss incidents on record.</li>
         </ul>
       </div>
+
       <div class="exp-card r">
         <div class="exp-top">
           <div>
             <div class="exp-role">Intern — System &amp; Network Administration</div>
             <div class="exp-company">LIS Nepal Pvt. Ltd. · Jawalakhel, Nepal</div>
           </div>
-          <span class="exp-period">Sep 2021 – Nov 2022</span>
+          <span class="exp-badge exp-past">Sep 2021 – Nov 2022</span>
         </div>
         <ul class="exp-bullets">
           <li>Deployed and managed VMs using VMware, Proxmox, and XCP-ng hypervisors.</li>
-          <li>Configured SonicWall firewalls for bandwidth management and user access policies.</li>
+          <li>Configured SonicWall firewalls for bandwidth management and access policies.</li>
           <li>Conducted vulnerability assessments and monitored network health using Nagios and Zabbix.</li>
           <li>Managed Cisco routers and switches; configured RAID and maintained server performance.</li>
         </ul>
       </div>
+
       <div class="exp-card r">
         <div class="exp-top">
           <div>
             <div class="exp-role">Computer Science Teacher</div>
             <div class="exp-company">St. Xavier's School · Godawari, Nepal</div>
           </div>
-          <span class="exp-period">Jun 2021 – Aug 2021</span>
+          <span class="exp-badge exp-past">Jun 2021 – Aug 2021</span>
         </div>
         <ul class="exp-bullets">
-          <li>Taught computer science to Grades 8 and 9, covering computing fundamentals and digital literacy.</li>
+          <li>Taught computer science curriculum to Grades 8 and 9 — computing fundamentals and digital literacy.</li>
         </ul>
       </div>
+
       <div class="exp-card r">
         <div class="exp-top">
           <div>
             <div class="exp-role">Data Center Engineer</div>
             <div class="exp-company">Silverlining Pvt. Ltd. · Kathmandu, Nepal</div>
           </div>
-          <span class="exp-period">Sep 2019 – Nov 2019</span>
+          <span class="exp-badge exp-past">Sep 2019 – Nov 2019</span>
         </div>
         <ul class="exp-bullets">
-          <li>Monitored servers, firewalls, and routers in data center environments.</li>
+          <li>Monitored servers, firewalls, and routers in live data center environments.</li>
           <li>Documented system security policies and prepared performance reports for corporate clients.</li>
           <li>Supported clients with technical queries and on-site troubleshooting.</li>
         </ul>
       </div>
+
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
-    <div class="sec-head r">
-      <p class="sec-label">Technical Toolkit</p>
-      <h2 class="sec-title">Skills &amp; Technologies</h2>
-      <p class="sec-sub">A broad toolkit built through real-world implementation — not just certifications.</p>
+    <div class="r">
+      <div class="sec-chip">Technical Toolkit</div>
+      <h2 class="sec-h">Skills &amp; Technologies</h2>
+      <p class="sec-sub">A broad, battle-tested toolkit built through real-world production systems — not just certifications.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">🖥️</span><span class="skill-name">Operating Systems</span></div><div class="tags"><span class="tag">Windows Server 2016</span><span class="tag">CentOS</span><span class="tag">Ubuntu</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">⚙️</span><span class="skill-name">Virtualisation</span></div><div class="tags"><span class="tag">VMware</span><span class="tag">Proxmox</span><span class="tag">Hyper-V</span><span class="tag">XCP-ng</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">🌐</span><span class="skill-name">Networking</span></div><div class="tags"><span class="tag">Cisco Routers/Switches</span><span class="tag">SonicWall</span><span class="tag">Firewall Config</span><span class="tag">VPN</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">📊</span><span class="skill-name">Monitoring</span></div><div class="tags"><span class="tag">Zabbix</span><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">Nagios</span><span class="tag">OpenTelemetry</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">🚀</span><span class="skill-name">DevOps &amp; Automation</span></div><div class="tags"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Ansible</span><span class="tag">CI/CD</span><span class="tag">Git</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">☁️</span><span class="skill-name">Cloud Platforms</span></div><div class="tags"><span class="tag">AWS (Foundational)</span><span class="tag">Azure (Basic)</span><span class="tag">SSO Config</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">💻</span><span class="skill-name">Scripting &amp; Databases</span></div><div class="tags"><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">SQL</span></div></div>
-      <div class="skill-card r"><div class="skill-head"><span class="skill-ico">🔒</span><span class="skill-name">Security &amp; Backup</span></div><div class="tags"><span class="tag">RAID</span><span class="tag">SIEM</span><span class="tag">System Hardening</span><span class="tag">Disaster Recovery</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">🖥️</span><span class="sk-name">Operating Systems</span></div><div class="tags"><span class="tag">Windows Server 2016</span><span class="tag">CentOS</span><span class="tag">Ubuntu</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">⚙️</span><span class="sk-name">Virtualisation</span></div><div class="tags"><span class="tag">VMware</span><span class="tag">Proxmox</span><span class="tag">Hyper-V</span><span class="tag">XCP-ng</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">🌐</span><span class="sk-name">Networking</span></div><div class="tags"><span class="tag">Cisco Routers/Switches</span><span class="tag">SonicWall</span><span class="tag">Firewall Config</span><span class="tag">VPN</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">📊</span><span class="sk-name">Monitoring</span></div><div class="tags"><span class="tag">Zabbix</span><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">Nagios</span><span class="tag">OpenTelemetry</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">🚀</span><span class="sk-name">DevOps &amp; Automation</span></div><div class="tags"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Ansible</span><span class="tag">CI/CD</span><span class="tag">Git</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">☁️</span><span class="sk-name">Cloud Platforms</span></div><div class="tags"><span class="tag">AWS (Foundational)</span><span class="tag">Azure (Basic)</span><span class="tag">SSO Config</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">💻</span><span class="sk-name">Scripting &amp; Databases</span></div><div class="tags"><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">SQL</span></div></div>
+      <div class="skill-card r"><div class="sk-head"><span class="sk-ico">🔒</span><span class="sk-name">Security &amp; Backup</span></div><div class="tags"><span class="tag">RAID</span><span class="tag">SIEM</span><span class="tag">System Hardening</span><span class="tag">Disaster Recovery</span></div></div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
+<!-- CERTIFICATIONS -->
 <section id="certifications">
   <div class="wrap">
-    <div class="sec-head r">
-      <p class="sec-label">Credentials</p>
-      <h2 class="sec-title">Certifications &amp; Training</h2>
-      <p class="sec-sub">Committed to continuous learning across cloud, DevOps, and cybersecurity.</p>
+    <div class="r">
+      <div class="sec-chip">Credentials</div>
+      <h2 class="sec-h">Certifications &amp; Training</h2>
+      <p class="sec-sub">Committed to continuous learning across cloud infrastructure, DevOps, and cybersecurity.</p>
     </div>
     <div class="certs-grid">
-      <div class="cert-card r"><span class="cert-ico">☁️</span><div><div class="cert-name">AWS Cloud Practitioner<span class="badge-wip">in progress</span></div><div class="cert-by">KodeKloud · 2025</div></div></div>
+      <div class="cert-card r"><span class="cert-ico">☁️</span><div><div class="cert-name">AWS Cloud Practitioner<span class="wip">in progress</span></div><div class="cert-by">KodeKloud · 2025</div></div></div>
       <div class="cert-card r"><span class="cert-ico">🔁</span><div><div class="cert-name">Continuous Integration &amp; Continuous Delivery (CI/CD)</div><div class="cert-by">Coursera · 2023</div></div></div>
       <div class="cert-card r"><span class="cert-ico">🔧</span><div><div class="cert-name">Google IT Support Specialization</div><div class="cert-by">Google · 2022</div></div></div>
       <div class="cert-card r"><span class="cert-ico">🛡️</span><div><div class="cert-name">Introduction to Cybersecurity &amp; Learning Path</div><div class="cert-by">TryHackMe · 2022</div></div></div>
@@ -315,75 +520,155 @@ footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-fa
 </section>
 <div class="divider"></div>
 
+<!-- EDUCATION -->
 <section id="education">
   <div class="wrap">
-    <div class="sec-head r">
-      <p class="sec-label">Academic Background</p>
-      <h2 class="sec-title">Education</h2>
+    <div class="r">
+      <div class="sec-chip">Academic Background</div>
+      <h2 class="sec-h">Education</h2>
     </div>
     <div class="edu-list">
       <div class="edu-card r">
-        <div><div class="edu-deg">BSc (Hons) Computer Networking &amp; IT Security</div><div class="edu-school">Islington College (London Metropolitan University) · Kathmandu</div></div>
-        <div class="edu-right"><div class="edu-yr">2018 – 2021</div><div class="edu-grade">Grade: 68.18%</div></div>
+        <div><div class="edu-deg">BSc (Hons) Computer Networking &amp; IT Security</div><div class="edu-school">Islington College (London Metropolitan University) · Kathmandu, Nepal</div></div>
+        <div style="text-align:right"><div class="edu-yr">2018 – 2021</div><div class="edu-grade">Grade: 68.18%</div></div>
       </div>
       <div class="edu-card r">
         <div><div class="edu-deg">Higher Secondary (Science)</div><div class="edu-school">St. Xavier's School · Lalitpur, Nepal</div></div>
-        <div class="edu-right"><div class="edu-yr">2014 – 2016</div><div class="edu-grade">Grade: 73%</div></div>
+        <div style="text-align:right"><div class="edu-yr">2014 – 2016</div><div class="edu-grade">Grade: 73%</div></div>
       </div>
       <div class="edu-card r">
         <div><div class="edu-deg">School Leaving Certificate (SLC)</div><div class="edu-school">St. Xavier's School · Godawari, Nepal</div></div>
-        <div class="edu-right"><div class="edu-yr">2007 – 2014</div><div class="edu-grade">Grade: 78.25%</div></div>
+        <div style="text-align:right"><div class="edu-yr">2007 – 2014</div><div class="edu-grade">Grade: 78.25%</div></div>
       </div>
     </div>
     <div class="award r">
       <span class="award-ico">🏆</span>
       <div>
-        <div class="award-title">Employee of the Month — Javra Software Pvt. Ltd.</div>
-        <div class="award-desc">Recognised in March 2022 for outstanding contribution to IT infrastructure optimisation and proactive issue management — a clear reflection of consistent, results-driven work.</div>
+        <div class="award-t">Employee of the Month — Javra Software Pvt. Ltd.</div>
+        <div class="award-d">Recognised in March 2022 for outstanding contribution to IT infrastructure optimisation and proactive issue management — a clear reflection of consistent, results-driven work ethic.</div>
       </div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
     <div class="contact-grid">
       <div class="r">
-        <p class="sec-label">Let's Talk</p>
-        <h2 class="sec-title" style="max-width:380px">Have a project or role in mind?</h2>
-        <p class="sec-sub" style="margin-bottom:2rem">Whether it's infrastructure work, DevOps consulting, or a full-time opportunity — I'm always open to a good conversation.</p>
-        <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-fill">Send an email →</a>
+        <div class="sec-chip">Let's Talk</div>
+        <h2 class="contact-h">Have a project<br>or role in mind?</h2>
+        <p class="contact-p">Whether it's infrastructure, DevOps consulting, or a full-time opportunity — I'm always open to a great conversation.</p>
+        <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-primary">Send an Email →</a>
       </div>
-      <div class="contact-cards r">
-        <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="contact-card">
-          <span class="contact-ico">📧</span>
-          <div><div class="contact-label">Email</div><div class="contact-val">chaurasia.ashutosh18k@gmail.com</div></div>
+      <div class="c-links r2">
+        <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="c-link">
+          <span class="c-ico">📧</span>
+          <div><div class="c-label">Email</div><div class="c-val">chaurasia.ashutosh18k@gmail.com</div></div>
         </a>
-        <a href="tel:+9779845858723" class="contact-card">
-          <span class="contact-ico">📱</span>
-          <div><div class="contact-label">Phone</div><div class="contact-val">+977-9845858723</div></div>
+        <a href="tel:+9779845858723" class="c-link">
+          <span class="c-ico">📱</span>
+          <div><div class="c-label">Phone</div><div class="c-val">+977-9845858723</div></div>
         </a>
-        <div class="contact-card" style="cursor:default">
-          <span class="contact-ico">📍</span>
-          <div><div class="contact-label">Location</div><div class="contact-val">Kathmandu, Nepal</div></div>
+        <div class="c-link" style="cursor:default">
+          <span class="c-ico">📍</span>
+          <div><div class="c-label">Location</div><div class="c-val">Kathmandu, Nepal 🇳🇵</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<footer>© 2025 Ashutosh Chaurasia · Kathmandu, Nepal</footer>
+<footer>© 2025 Ashutosh Chaurasia &nbsp;·&nbsp; Kathmandu, Nepal &nbsp;·&nbsp; Built with passion</footer>
 
 <script>
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.1});
-document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+/* ── ANIMATED STARFIELD BACKGROUND ── */
+(function(){
+  const c=document.getElementById('bg-canvas');
+  const ctx=c.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;initStars()}
+  function initStars(){
+    stars=[];
+    for(let i=0;i<180;i++){
+      stars.push({
+        x:Math.random()*W,y:Math.random()*H,
+        r:Math.random()*1.5+.3,
+        vx:(Math.random()-.5)*.15,
+        vy:(Math.random()-.5)*.15,
+        o:Math.random()*.7+.2
+      })
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,255,136,${s.o})`;
+      ctx.fill();
+      s.x+=s.vx;s.y+=s.vy;
+      if(s.x<0)s.x=W;if(s.x>W)s.x=0;
+      if(s.y<0)s.y=H;if(s.y>H)s.y=0;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);
+  resize();draw();
+})();
 
+/* ── FLOATING PARTICLES ── */
+(function(){
+  const colors=['rgba(0,255,136,','rgba(124,92,252,','rgba(0,204,255,'];
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    const size=Math.random()*4+2;
+    const col=colors[Math.floor(Math.random()*colors.length)];
+    Object.assign(p.style,{
+      position:'fixed',
+      width:size+'px',height:size+'px',
+      left:Math.random()*100+'vw',
+      top:Math.random()*100+'vh',
+      background:col+'.6)',
+      borderRadius:'50%',
+      pointerEvents:'none',
+      zIndex:'0',
+      animation:`float ${Math.random()*15+10}s linear ${Math.random()*10}s infinite`,
+    });
+    document.body.appendChild(p);
+  }
+})();
+
+/* ── 3D CARD TILT ── */
+const card=document.getElementById('card3d');
+const shine=document.getElementById('cardShine');
+if(card){
+  card.parentElement.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`rotateY(${x*22}deg) rotateX(${-y*18}deg) translateZ(10px)`;
+    shine.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    shine.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+  card.parentElement.addEventListener('mouseleave',()=>{
+    card.style.transform='rotateY(0) rotateX(0) translateZ(0)';
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.1});
+document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
+
+/* ── PHOTO LOADER ── */
 const img=new Image();
 const tries=['images/profile.jpg','images/profile.png','images/profile.jpeg','images/photo.jpg','images/photo.png'];
-let i=0;
+let ti=0;
 function tryNext(){
-  if(i>=tries.length)return;
+  if(ti>=tries.length)return;
   img.onload=()=>{
     const wrap=document.getElementById('heroPhoto');
     document.getElementById('initials').style.display='none';
@@ -391,10 +676,38 @@ function tryNext(){
     el.src=img.src;el.alt='Ashutosh Chaurasia';
     wrap.appendChild(el);
   };
-  img.onerror=()=>{i++;tryNext()};
-  img.src=tries[i++];
+  img.onerror=()=>{ti++;tryNext()};
+  img.src=tries[ti++];
 }
 tryNext();
+
+/* ── COUNTER ANIMATION ── */
+function animCount(el,target,suffix){
+  let start=null;
+  const dur=1800;
+  const isFloat=target%1!==0;
+  function step(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    const ease=1-Math.pow(1-p,4);
+    const val=isFloat?(ease*target).toFixed(1):Math.round(ease*target);
+    el.textContent=val+suffix;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const nums=e.target.querySelectorAll('.hstat-n');
+      const data=[{v:5,s:'+'},{v:150,s:'+'},{v:99.9,s:'%'},{v:30,s:'%'}];
+      nums.forEach((n,i)=>animCount(n,data[i].v,data[i].s));
+      statsObs.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+const statsEl=document.querySelector('.hero-stats');
+if(statsEl)statsObs.observe(statsEl);
 </script>
 </body>
 </html>
