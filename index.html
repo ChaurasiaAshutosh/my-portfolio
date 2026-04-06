@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ashutosh Chaurasia — System Administrator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0c0f;
+      --surface: #111318;
+      --surface2: #181c23;
+      --border: #1e2330;
+      --accent: #00e5ff;
+      --accent2: #7b61ff;
+      --text: #e8ecf4;
+      --muted: #6b7694;
+      --card-bg: rgba(24,28,35,0.85);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── Noise overlay ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ─── Ambient blobs ─── */
+    .blob {
+      position: fixed; border-radius: 50%; filter: blur(120px);
+      opacity: 0.18; pointer-events: none; z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -200px; animation: drift 18s ease-in-out infinite alternate; }
+    .blob-2 { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; left: -150px; animation: drift 22s ease-in-out infinite alternate-reverse; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,40px) scale(1.08); } }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(10,12,15,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      color: var(--accent); letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 5rem;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2);
+      color: var(--accent); font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+    h1 .accent { color: var(--accent); }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 440px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #000; font-weight: 500; font-size: 0.9rem;
+      padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s; display: inline-block;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,255,0.35); }
+    .btn-outline {
+      border: 1px solid var(--border); color: var(--text); font-size: 0.9rem;
+      padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      display: flex; justify-content: flex-end; align-items: center;
+    }
+    .hero-photo-ring {
+      position: relative; width: 320px; height: 320px;
+    }
+    .hero-photo-ring::before {
+      content: '';
+      position: absolute; inset: -8px; border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent));
+      animation: spin 8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-photo-ring::after {
+      content: '';
+      position: absolute; inset: -4px; border-radius: 50%;
+      background: var(--bg);
+    }
+    .hero-photo {
+      position: relative; z-index: 2; width: 100%; height: 100%;
+      border-radius: 50%; object-fit: cover; object-position: center top;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .hero-photo-placeholder {
+      font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800;
+      color: var(--accent); position: absolute; z-index: 3;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--surface2);
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; gap: 2rem; margin-top: 2.5rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.25rem; }
+
+    /* ─── Section commons ─── */
+    section { padding: 6rem 0; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem; font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 3.5rem; }
+    .section-header { margin-bottom: 3.5rem; }
+
+    /* ─── About ─── */
+    #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-info { display: flex; flex-direction: column; gap: 1.25rem; }
+    .info-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .info-icon { font-size: 1.4rem; }
+    .info-content { display: flex; flex-direction: column; }
+    .info-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .info-val { font-size: 0.95rem; color: var(--text); }
+    .info-val a { color: var(--accent); text-decoration: none; }
+
+    /* ─── Experience ─── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 16px; top: 0; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item { position: relative; padding-left: 3.5rem; margin-bottom: 2.5rem; }
+    .timeline-dot {
+      position: absolute; left: 9px; top: 0.35rem;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(0,229,255,0.5);
+    }
+    .timeline-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem; transition: border-color 0.2s;
+    }
+    .timeline-card:hover { border-color: rgba(0,229,255,0.3); }
+    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .tl-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .tl-company { font-size: 0.88rem; color: var(--accent); margin-bottom: 0.25rem; }
+    .tl-period {
+      font-size: 0.75rem; background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.15); color: var(--accent);
+      padding: 0.25rem 0.75rem; border-radius: 100px; white-space: nowrap;
+    }
+    .tl-list { list-style: none; margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tl-list li { font-size: 0.9rem; color: var(--muted); padding-left: 1.25rem; position: relative; }
+    .tl-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+    /* ─── Skills ─── */
+    #skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    .skill-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-3px); }
+    .skill-card-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .skill-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.75rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: 6px;
+      background: rgba(0,229,255,0.06); border: 1px solid rgba(0,229,255,0.12);
+      color: var(--muted);
+    }
+
+    /* ─── Certifications ─── */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+    .cert-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; display: flex; align-items: flex-start;
+      gap: 1rem; transition: border-color 0.2s;
+    }
+    .cert-card:hover { border-color: rgba(123,97,255,0.4); }
+    .cert-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .cert-name { font-weight: 500; font-size: 0.92rem; color: var(--text); margin-bottom: 0.25rem; }
+    .cert-issuer { font-size: 0.8rem; color: var(--muted); }
+
+    /* ─── Education ─── */
+    .edu-grid { display: flex; flex-direction: column; gap: 1.25rem; }
+    .edu-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem 1.75rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem; transition: border-color 0.2s;
+    }
+    .edu-card:hover { border-color: rgba(0,229,255,0.25); }
+    .edu-degree { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+    .edu-school { font-size: 0.88rem; color: var(--muted); margin-top: 0.2rem; }
+    .edu-right { text-align: right; }
+    .edu-year { font-size: 0.8rem; color: var(--accent); }
+    .edu-grade { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ─── Achievement ─── */
+    .achievement-card {
+      background: linear-gradient(135deg, rgba(0,229,255,0.07), rgba(123,97,255,0.07));
+      border: 1px solid rgba(0,229,255,0.2); border-radius: 16px;
+      padding: 2.5rem; display: flex; align-items: center; gap: 2rem;
+    }
+    .achievement-icon { font-size: 3.5rem; flex-shrink: 0; }
+    .achievement-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .achievement-desc { color: var(--muted); font-size: 0.92rem; }
+
+    /* ─── Contact ─── */
+    #contact { background: var(--surface); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.1rem 1.5rem;
+      text-decoration: none; color: var(--text); transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-link-icon { font-size: 1.3rem; }
+    .contact-link-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .contact-link-val { font-size: 0.92rem; color: var(--text); }
+    .contact-cta h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .contact-cta p { color: var(--muted); margin-bottom: 2rem; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-photo-wrap { justify-content: center; margin-top: 2rem; }
+      .hero-photo-ring { width: 220px; height: 220px; }
+      .stats-row { flex-wrap: wrap; gap: 1.5rem; }
+      .nav-links { display: none; }
+      .achievement-card { flex-direction: column; text-align: center; }
+    }
+
+    /* ─── Scroll animations ─── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">AC.</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge"><span></span> Open to Opportunities</div>
+          <h1>Ashutosh<br><span class="accent">Chaurasia</span></h1>
+          <p class="hero-sub">System Administrator with 2+ years of experience building resilient, secure, and scalable IT infrastructure across hybrid cloud environments.</p>
+          <div class="hero-actions">
+            <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-primary">Get in Touch</a>
+            <a href="#experience" class="btn-outline">View Experience</a>
+          </div>
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-num">2+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">150+</span>
+              <span class="stat-label">VMs Managed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">99.9%</span>
+              <span class="stat-label">Uptime Achieved</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">30%</span>
+              <span class="stat-label">CI/CD Boost</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-ring">
+            <div class="hero-photo" id="heroPhoto">
+              <!-- 
+                PHOTO INSTRUCTIONS:
+                Add your photo to the "images" folder in your repo
+                and name it "profile.jpg" (or .png)
+                The script below will auto-load it.
+                If not found, it shows your initials.
+              -->
+              <div class="hero-photo-placeholder" id="initials">AC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p class="section-label">About Me</p>
+          <h2 class="section-title">Keeping Infrastructure Reliable, Secure &amp; Fast</h2>
+          <p>I'm a dedicated System Administrator based in <strong>Kathmandu, Nepal</strong>, specialising in hybrid IT infrastructure, virtualisation, and DevOps automation. With hands-on experience across <strong>VMware, Proxmox, Hyper-V, Kubernetes, and Docker</strong>, I thrive in complex multi-platform environments.</p>
+          <p>I believe reliable infrastructure is the silent backbone of every successful product. My work is driven by a commitment to <strong>zero-downtime deployments</strong>, proactive monitoring, and continuous improvement.</p>
+          <p>Currently pursuing <strong>AWS Cloud Practitioner certification</strong> to deepen my cloud expertise alongside practical Azure experience.</p>
+        </div>
+        <div class="about-info reveal">
+          <div class="info-card">
+            <span class="info-icon">📍</span>
+            <div class="info-content">
+              <span class="info-label">Location</span>
+              <span class="info-val">Kathmandu, Nepal</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">📧</span>
+            <div class="info-content">
+              <span class="info-label">Email</span>
+              <span class="info-val"><a href="mailto:chaurasia.ashutosh18k@gmail.com">chaurasia.ashutosh18k@gmail.com</a></span>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">📱</span>
+            <div class="info-content">
+              <span class="info-label">Phone</span>
+              <span class="info-val">+977-9845858723</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">🎓</span>
+            <div class="info-content">
+              <span class="info-label">Degree</span>
+              <span class="info-val">BSc (Hons) Computer Networking &amp; IT Security</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">🌐</span>
+            <div class="info-content">
+              <span class="info-label">Languages</span>
+              <span class="info-val">English, Nepali</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Career Path</p>
+        <h2 class="section-title">Professional Experience</h2>
+        <p class="section-desc">A track record of building and maintaining infrastructure that keeps businesses running — reliably, securely, and at scale.</p>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">System Administrator</div>
+                <div class="tl-company">Javra Software Pvt. Ltd. · Kathmandu, Nepal</div>
+              </div>
+              <span class="tl-period">Feb 2022 – Present</span>
+            </div>
+            <ul class="tl-list">
+              <li>Managed and maintained 150+ virtual machines across VMware, Proxmox, and Hyper-V environments.</li>
+              <li>Administered Windows Server 2016 and CentOS with Active Directory setup and maintenance.</li>
+              <li>Configured Zabbix, Prometheus, Grafana, and Nagios to achieve 99.9% uptime.</li>
+              <li>Implemented Docker and Ansible automation, improving CI/CD deployment efficiency by 30%.</li>
+              <li>Configured Cisco routers, switches, and firewalls to strengthen network security.</li>
+              <li>Managed multi-cluster Kubernetes deployments for microservices architecture.</li>
+              <li>Utilised AWS and Azure for VM deployment, storage management, and SSO configuration.</li>
+              <li>Led system backup and disaster recovery operations — zero data loss incidents.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Intern — System &amp; Network Administration</div>
+                <div class="tl-company">LIS Nepal Pvt. Ltd. · Jawalakhel, Nepal</div>
+              </div>
+              <span class="tl-period">Sep 2021 – Nov 2022</span>
+            </div>
+            <ul class="tl-list">
+              <li>Deployed and managed VMs using VMware, Proxmox, and XCP-ng hypervisors.</li>
+              <li>Configured SonicWall firewalls for bandwidth management and access policies.</li>
+              <li>Conducted vulnerability assessments and monitored network health via Nagios and Zabbix.</li>
+              <li>Managed Cisco routers/switches and configured RAID for server performance.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Computer Science Teacher</div>
+                <div class="tl-company">St. Xavier's School · Godawari, Nepal</div>
+              </div>
+              <span class="tl-period">Jun 2021 – Aug 2021</span>
+            </div>
+            <ul class="tl-list">
+              <li>Taught computer science to Grades 8 and 9, focusing on computing fundamentals and digital literacy.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Data Center Engineer</div>
+                <div class="tl-company">Silverlining Pvt. Ltd. · Kathmandu, Nepal</div>
+              </div>
+              <span class="tl-period">Sep 2019 – Nov 2019</span>
+            </div>
+            <ul class="tl-list">
+              <li>Monitored servers, firewalls, and routers in data center environments.</li>
+              <li>Documented system security policies and prepared performance reports for corporate clients.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Technical Expertise</p>
+        <h2 class="section-title">Skills &amp; Technologies</h2>
+        <p class="section-desc">A broad toolkit covering infrastructure, DevOps, cloud, and security — built through real-world implementation.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🖥️</div>
+          <div class="skill-card-title">Operating Systems</div>
+          <div class="skill-tags">
+            <span class="tag">Windows Server 2016</span>
+            <span class="tag">CentOS</span>
+            <span class="tag">Ubuntu</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">⚙️</div>
+          <div class="skill-card-title">Virtualisation</div>
+          <div class="skill-tags">
+            <span class="tag">VMware</span>
+            <span class="tag">Proxmox</span>
+            <span class="tag">Hyper-V</span>
+            <span class="tag">XCP-ng</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🌐</div>
+          <div class="skill-card-title">Networking</div>
+          <div class="skill-tags">
+            <span class="tag">Cisco Routers/Switches</span>
+            <span class="tag">SonicWall</span>
+            <span class="tag">Firewall Config</span>
+            <span class="tag">VPN</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">📊</div>
+          <div class="skill-card-title">Monitoring</div>
+          <div class="skill-tags">
+            <span class="tag">Zabbix</span>
+            <span class="tag">Grafana</span>
+            <span class="tag">Prometheus</span>
+            <span class="tag">Nagios</span>
+            <span class="tag">OpenTelemetry</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🚀</div>
+          <div class="skill-card-title">DevOps &amp; Automation</div>
+          <div class="skill-tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Ansible</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">Git</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">☁️</div>
+          <div class="skill-card-title">Cloud Platforms</div>
+          <div class="skill-tags">
+            <span class="tag">AWS (Foundational)</span>
+            <span class="tag">Azure (Basic)</span>
+            <span class="tag">SSO Configuration</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">💻</div>
+          <div class="skill-card-title">Scripting &amp; Databases</div>
+          <div class="skill-tags">
+            <span class="tag">Bash</span>
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🔒</div>
+          <div class="skill-card-title">Backup &amp; Security</div>
+          <div class="skill-tags">
+            <span class="tag">RAID</span>
+            <span class="tag">SIEM</span>
+            <span class="tag">System Hardening</span>
+            <span class="tag">Disaster Recovery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Learning &amp; Development</p>
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-desc">Committed to continuous professional development across cloud, DevOps, and cybersecurity.</p>
+      </div>
+      <div class="certs-grid">
+        <div class="cert-card reveal">
+          <span class="cert-icon">☁️</span>
+          <div>
+            <div class="cert-name">AWS Cloud Practitioner (in progress)</div>
+            <div class="cert-issuer">KodeKloud · 2025</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon">🔁</span>
+          <div>
+            <div class="cert-name">Continuous Integration &amp; Continuous Delivery (CI/CD)</div>
+            <div class="cert-issuer">Coursera · 2023</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon">🔧</span>
+          <div>
+            <div class="cert-name">Google IT Support Specialization</div>
+            <div class="cert-issuer">Google · 2022</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon">🛡️</span>
+          <div>
+            <div class="cert-name">Introduction to Cybersecurity &amp; Learning Path</div>
+            <div class="cert-issuer">TryHackMe · 2022</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon">💾</span>
+          <div>
+            <div class="cert-name">System Administration: Backup &amp; Recovery</div>
+            <div class="cert-issuer">LinkedIn Learning · 2022</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon">📝</span>
+          <div>
+            <div class="cert-name">Version Control with Git</div>
+            <div class="cert-issuer">Coursera · 2020</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Academic Background</p>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-degree">BSc (Hons) Computer Networking &amp; IT Security</div>
+            <div class="edu-school">Islington College (Affiliated: London Metropolitan University) · Kathmandu, Nepal</div>
+          </div>
+          <div class="edu-right">
+            <div class="edu-year">2018 – 2021</div>
+            <div class="edu-grade">Grade: 68.18%</div>
+          </div>
+        </div>
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-degree">Higher Secondary (Science)</div>
+            <div class="edu-school">St. Xavier's School · Lalitpur, Nepal</div>
+          </div>
+          <div class="edu-right">
+            <div class="edu-year">2014 – 2016</div>
+            <div class="edu-grade">Grade: 73%</div>
+          </div>
+        </div>
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-degree">School Leaving Certificate (SLC)</div>
+            <div class="edu-school">St. Xavier's School · Godawari, Nepal</div>
+          </div>
+          <div class="edu-right">
+            <div class="edu-year">2007 – 2014</div>
+            <div class="edu-grade">Grade: 78.25%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievement -->
+      <div style="margin-top: 3rem;">
+        <div class="achievement-card reveal">
+          <div class="achievement-icon">🏆</div>
+          <div>
+            <div class="achievement-title">Employee of the Month — Javra Software Pvt. Ltd.</div>
+            <div class="achievement-desc">Recognised in March 2022 for outstanding contribution to IT infrastructure optimisation and proactive issue management. A testament to dedication and results-driven work ethic.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-cta reveal">
+          <p class="section-label">Let's Connect</p>
+          <h2>Have a project or<br>opportunity in mind?</h2>
+          <p>Whether you're looking for a reliable system administrator, need infrastructure consulting, or just want to talk tech — I'm always open to a good conversation.</p>
+          <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="btn-primary">Send an Email</a>
+        </div>
+        <div class="contact-links reveal">
+          <a href="mailto:chaurasia.ashutosh18k@gmail.com" class="contact-link">
+            <span class="contact-link-icon">📧</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">chaurasia.ashutosh18k@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+9779845858723" class="contact-link">
+            <span class="contact-link-icon">📱</span>
+            <div>
+              <div class="contact-link-label">Phone</div>
+              <div class="contact-link-val">+977-9845858723</div>
+            </div>
+          </a>
+          <div class="contact-link" style="cursor:default">
+            <span class="contact-link-icon">📍</span>
+            <div>
+              <div class="contact-link-label">Location</div>
+              <div class="contact-link-val">Kathmandu, Nepal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Ashutosh Chaurasia · Built with care · Kathmandu, Nepal</p>
+  </footer>
+
+  <script>
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Auto-load profile photo from images/ folder ──
+    const img = new Image();
+    img.onload = () => {
+      const placeholder = document.getElementById('initials');
+      const photo = document.getElementById('heroPhoto');
+      if (placeholder) placeholder.style.display = 'none';
+      const imgEl = document.createElement('img');
+      imgEl.src = img.src;
+      imgEl.alt = 'Ashutosh Chaurasia';
+      photo.appendChild(imgEl);
+    };
+    // Try common image extensions
+    const tryImages = ['images/profile.jpg','images/profile.png','images/profile.jpeg','images/photo.jpg','images/photo.png'];
+    let tried = 0;
+    function tryNext() {
+      if (tried >= tryImages.length) return;
+      img.onerror = () => { tried++; tryNext(); };
+      img.src = tryImages[tried++];
+    }
+    tryNext();
+  </script>
+</body>
+</html>
